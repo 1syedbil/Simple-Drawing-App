@@ -15,6 +15,7 @@ let scaleDownIcon;
 let clearIcon;
 let pivotIcon;
 
+let toolbarButtons = [];
 let rotateCwBtn;
 let rotateCcwBtn;
 let moveLeftBtn;
@@ -62,36 +63,44 @@ function setupScreenLayout() {
 }
 
 function setupToolBarButtons() {
-  rotateCwBtn = new ToolBarButton(0, 0, buttonWidth, buttonHeight, rotateCwIcon, () => {
-    console.log("Rotate Clockwise");
+  toolbarButtons = [];
+  const buttonConfigs = [
+    { icon: rotateCwIcon, onClick: () => console.log("Rotate Clockwise") },
+    { icon: rotateCcwIcon, onClick: () => console.log("Rotate Counter-Clockwise") },
+    { icon: moveLeftIcon, onClick: () => console.log("Move Left") },
+    { icon: moveRightIcon, onClick: () => console.log("Move Right") },
+    { icon: moveUpIcon, onClick: () => console.log("Move Up") },
+    { icon: moveDownIcon, onClick: () => console.log("Move Down") },
+    { icon: scaleUpIcon, onClick: () => console.log("Scale Up") },
+    { icon: scaleDownIcon, onClick: () => console.log("Scale Down") },
+    { icon: clearIcon, onClick: () => console.log("Clear") },
+    { icon: pivotIcon, onClick: () => console.log("Set Pivot") }
+  ];
+
+  buttonConfigs.forEach((config, index) => {
+    const button = new ToolBarButton(
+      0,
+      buttonHeight * index,
+      buttonWidth,
+      buttonHeight,
+      config.icon,
+      config.onClick
+    );
+    toolbarButtons.push(button);
   });
-  rotateCcwBtn = new ToolBarButton(0, buttonHeight, buttonWidth, buttonHeight, rotateCcwIcon, () => {
-    console.log("Rotate Counter-Clockwise");
-  });
-  moveLeftBtn = new ToolBarButton(0, buttonHeight * 2, buttonWidth, buttonHeight, moveLeftIcon, () => {
-    console.log("Move Left");
-  });
-  moveRightBtn = new ToolBarButton(0, buttonHeight * 3, buttonWidth, buttonHeight, moveRightIcon, () => {
-    console.log("Move Right");
-  });
-  moveUpBtn = new ToolBarButton(0, buttonHeight * 4, buttonWidth, buttonHeight, moveUpIcon, () => {
-    console.log("Move Up");
-  });
-  moveDownBtn = new ToolBarButton(0, buttonHeight * 5, buttonWidth, buttonHeight, moveDownIcon, () => {
-    console.log("Move Down");
-  });
-  scaleUpBtn = new ToolBarButton(0, buttonHeight * 6, buttonWidth, buttonHeight, scaleUpIcon, () => {
-    console.log("Scale Up");
-  });
-  scaleDownBtn = new ToolBarButton(0, buttonHeight * 7, buttonWidth, buttonHeight, scaleDownIcon, () => {
-    console.log("Scale Down");
-  });
-  clearBtn = new ToolBarButton(0, buttonHeight * 8, buttonWidth, buttonHeight, clearIcon, () => {
-    console.log("Clear");
-  });
-  pivotBtn = new ToolBarButton(0, buttonHeight * 9, buttonWidth, buttonHeight, pivotIcon, () => {
-    console.log("Set Pivot");
-  });
+
+  [
+    rotateCwBtn,
+    rotateCcwBtn,
+    moveLeftBtn,
+    moveRightBtn,
+    moveUpBtn,
+    moveDownBtn,
+    scaleUpBtn,
+    scaleDownBtn,
+    clearBtn,
+    pivotBtn
+  ] = toolbarButtons;
 }
 
 function drawToolBarButtons() {
